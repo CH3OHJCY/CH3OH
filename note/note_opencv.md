@@ -32,7 +32,7 @@ matplotlib: (彩色图像是RGB)
 	plt.imshow(messi_rgb),plt.title('messi_rgb_plt')
 	plt.imshow(img[:,:,::-1])
 	:,:,:所有的像素  :-1是翻转
-
+```
 
 ----------
 
@@ -87,7 +87,7 @@ eg：cv.putText(img,'23333',(10,50),font,4,(255,255,255),2,cv_LINE_AA)
 	    print (image.dtype) #字节位数
 	    pixel_data = np.array(image)
 	    print (pixel_data)  #输出图片的矩阵
-
+```
 
 
 (6)色彩空间的改变
@@ -125,7 +125,7 @@ cv.INTER_CUBIC     双三次插值
 	res = cv.resize(img1,(2*cols,2*rows),interpolation=cv.INTER_CUBIC)
 	# 2.2 相对尺寸
 	res1 = cv.resize(img1,None,fx=0.5,fy=0.5,interpolation=cv.INTER_CUBIC)
-
+```
 
 
 (2)图像平移:
@@ -141,11 +141,10 @@ M： 2*∗3移动矩阵
 dsize: 输出图像的大小
 
 ```
-
 	rows,cols = img1.shape[:2]
 	M = M = np.float32([[1,0,100],[0,1,50]])# 平移矩阵
 	dst = cv.warpAffine(img1,M,(cols,rows))
-
+```
 
 (3)图像旋转
 
@@ -168,7 +167,7 @@ scale：缩放比例
 	# 2.2 进行旋转变换
 	dst = cv.warpAffine(img,M,(cols,rows))
 	#(cols,rows)这个是旋转后的图像大小规定
-
+```
 
 -----------
 
@@ -189,9 +188,8 @@ scale：缩放比例
 
 <font color=red>normalize</font>：是否对目标图像进行归一化操作。
 
-    (1)当normalize = 1时，方框滤波的效果和均值滤波的效果是一致的，要用邻域像素的和除以核里面像素的总个数，得到中心像素的灰度值。
-
-    (2)当normalize = 0时，表示不进行归一化操作，此时要计算核内所有像素的和代替原始图像核中心像素的大小，需要注意的是这种方式很容易造成溢出现象，例如当图像的像素用8位表示时候，如果所求和大于255则大于255的部分舍去，直接取255(白色)
+	(1)当normalize = 1时，方框滤波的效果和均值滤波的效果是一致的，要用邻域像素的和除以核里面像素的总个数，得到中心像素的灰度值。
+	(2)当normalize = 0时，表示不进行归一化操作，此时要计算核内所有像素的和代替原始图像核中心像素的大小，需要注意的是这种方式很容易造成溢出现象，例如当图像的像素用8位表示时候，如果所求和大于255则大于255的部分舍去，直接取255(白色)
 
 ----------
 
@@ -201,7 +199,9 @@ scale：缩放比例
 
 <font color=red>滤波核</font>：大小是5×5时，则取其自身和周围24个像素值的均值来代替当前像素值
 ```
+
     img_mean = cv2.blur(img, (5,5))
+```
 
 ----------
 
@@ -243,6 +243,7 @@ scale：缩放比例
 ----------
 
 <font size = 5 >6. 形态学滤波</font>
+
 ```
 
     import cv2 as cv
@@ -250,6 +251,8 @@ scale：缩放比例
     img = cv.imread('j.png',0)
     kernel = np.ones((5,5),np.uint8)  
     erosion = cv.erode(img,kernel,iterations = 1)
+
+```
 
 (1)腐蚀 - 以黑色(0)为中心把kernel内的变为黑色---一个把白变黑的过程
     
@@ -317,6 +320,7 @@ scale：缩放比例
     CV_FLOODFILL_MASK_ONLY 此位设置填充的对像， 若设置此位，则mask不能为空，此时，函数不填充原始图像img，而是填充掩码图像.
 
 eg:
+```
 
 	#FIXED_RANGE:
 	import numpy as np
@@ -348,6 +352,7 @@ eg:
 	cv.imshow("img",image)
 	cv.waitKey(0)
 
+```
 
 ----------
 
@@ -372,6 +377,8 @@ eg:
 G:原始图像  
 L:拉普拉斯金字塔图像
 
+```
+
 	import cv2 as cv
 	img = cv.imread("F:\\CISDI\\1st\\test_image\\2.jfif")
 	img_0 = cv.pyrDown(img)
@@ -386,7 +393,7 @@ L:拉普拉斯金字塔图像
 	cv.imshow("img_la_0",img_la_0)
 	cv.imshow("img_la_1",img_la_1)
 	cv.waitKey(0)
-
+```
 
 ----------
 
@@ -420,6 +427,8 @@ type参数表示阈值类型。
 
 低于阈值被置0 —— 像素值大于阈值的保持原来的像素值，小于阈值的置为0<font color=red>cv2.THRESH_TOZERO_INV </font>
 
+```
+
 	import cv2 as cv
 	img = cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg",0)
 	retval,dst = cv.threshold(img, 178, 256,cv.THRESH_TRUNC) #这个时候“256”没有实际用途因为阈值化的方法是cv.THRESH_TRUNC
@@ -433,7 +442,7 @@ type参数表示阈值类型。
 	print([type(dst)])
 	cv.imshow("A",dst)
 	cv.waitKey(0)
-
+```
 
 
 (2)局部阈值化
@@ -453,6 +462,7 @@ type参数表示阈值类型。
 + thresholdType参数表示阈值类型，必须为THRESH_BINARY或THRESH_BINARY_INV的阈值类型。
 + blockSize参数表示块大小（奇数且大于1，比如3，5，7… ）。
 + C参数是常数，表示从平均值或加权平均值中减去的数。 通常情况下，这是正值，但也可能为零或负值。阈值极为通过平均和高斯加权所计算的值在减去C。
+
 ```
 
 	import cv2 as cv
@@ -460,7 +470,7 @@ type参数表示阈值类型。
 	dst = cv.adaptiveThreshold(src, 200, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 9, 4)
 	cv.imshow("A",dst)
 	cv.waitKey(0)
-
+```
 
 ----------
 
@@ -480,6 +490,7 @@ threshold1:阈值1 - minVal阈值1
 threshold2:阈值2 - maxVal阈值2
 
 阈值 - 用来控制边界信息的丰富程度，这俩越小，边界信息越丰富，反之亦然。
+
 ```
 
 	import cv2 as cv
@@ -487,7 +498,7 @@ threshold2:阈值2 - maxVal阈值2
 	dst = cv.Canny(src,20,30)
 	cv.imshow("A",dst)
 	cv.waitKey(0)
-
+```
 
 (2)Sobel算子 --- 计算不同方向的梯度
 
@@ -502,6 +513,7 @@ dx:x轴方向,计算x轴方向,dx=1,dy=0
 dy:y轴方向,计算y轴,dx=0,dy=1
 
 ksize:核大小，默认3
+
 ```
 
 	import cv2 
@@ -516,6 +528,7 @@ ksize:核大小，默认3
 	cv2.imshow("Result", dst)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows() 
+```
 
 <font color=red>在Sobel函数的第二个参数这里使用了cv2.CV_64F。即Sobel函数求完导数后会有负值，还有会大于255的值。而原图像是uint8，即8位无符号数，所以Sobel建立的图像位数不够，会有截断。因此要改变类型  </font>
 
@@ -539,6 +552,7 @@ absX = cv2.convertScaleAbs(src) #将原始图像转为256色位图
 	cv2.imshow("Result", dst)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows() 
+```
 
 
 (4)Laplacian算子  --- 两次sobel，即二阶段
@@ -546,6 +560,7 @@ absX = cv2.convertScaleAbs(src) #将原始图像转为256色位图
 <font color=blue>函数：dst = cv2.Laplacian(src, ddepth)</font>
 
 <font color=red>使用方法类似于sobel</font>
+
 ```
 
 	import cv2 
@@ -555,7 +570,7 @@ absX = cv2.convertScaleAbs(src) #将原始图像转为256色位图
 	cv2.imshow("res", res)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows() 
-
+```
 
 -----------
 
@@ -571,6 +586,7 @@ theta:角的步距
 threshold:阈值，要大于这个阈值才算直线
 
 霍夫线检测后，输出的结构为[rho,theta]的一个矩阵
+
 ```
 
 	#一小段矩阵结构解释
@@ -579,7 +595,6 @@ threshold:阈值，要大于这个阈值才算直线
 	print(a)
 	b = a[0]
 	print(b)
-
 ```
 
 	import numpy as np
@@ -603,7 +618,8 @@ threshold:阈值，要大于这个阈值才算直线
 	    cv.line(img, (x1, y1), (x2, y2), (255, 255, 255))
 	cv.imshow("out", img)
 	cv.waitKey(0)
- 
+ ```
+
 
 (2) 霍夫圆检测
 <font color=blue>circles = cv.HoughCircles(image, method, dp, minDist, param1, param2, minRadius,maxRadius )</font>
@@ -643,7 +659,7 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 	hough_circle_demo(src)
 	cv.waitKey(0)
 	cv.destroyAllWindows()
-
+```
 
 ----------
 
@@ -682,6 +698,7 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 	cv2.imshow('dst',dst)
 	cv2.waitKey()
 	cv2.destroyAllWindows()
+```
 
 ----------
 
@@ -690,6 +707,7 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 <font color=blue>dst = cv2.warpAffine(img, M, (cols, rows))</font>  
 
 就是以三个点为基准来变换
+
 ```
 
 	img = cv2.imread('Rachel.jpg')
@@ -705,10 +723,12 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 	if k == ord('s'):
 	    cv2.imwrite('Rachel1.jpg', dst)
 	    cv2.destroyAllWindows()
+```
 
 ---------
 
 5. 掩膜
+
 ```
 
 	#1.创建蒙版
@@ -716,7 +736,7 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 	mask[400:650, 200:500] = 255
 	#2.掩模
 	masked_img = cv.bitwise_and(img,img,mask = mask)
-
+```
 
 ---------
 
@@ -729,6 +749,7 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 + mask: 掩模图像。要统计整幅图像的直方图就把它设为 None。但是如果你想统计图像某一部分的直方图的话，你就需要制作一个掩模图像，并使用它。（后边有例子）
 + histSize:BIN 的数目(灰度级的个数)。也应该用中括号括起来，例如：[256]。 　
 + ranges: 像素值范围，通常为 [0，256]
+
 ```
 
 	import numpy as np
@@ -743,7 +764,7 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 	plt.plot(histr)
 	plt.grid()
 	plt.show()
-
+```
 
 (2)直方图均衡化
 
@@ -758,11 +779,12 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 clipLimit: 对比度限制，默认是40
 
 tileGridSize: 分块的大小，默认为8*8
+
 ```
 	
 	clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
-
+```
 ---------
 
 ## 图像轮廓
@@ -816,6 +838,7 @@ mode的分类:
 第三个参数指定绘制轮廓list中的哪条轮廓，如果是-1，则绘制其中的所有轮廓。
 
 也可以输入数字来选择画那一个轮廓(如父轮廓，子轮廓等)
+
 ```
 
 	import numpy as np
@@ -831,7 +854,7 @@ mode的分类:
 	cv.drawContours(img,contours,3,(255,255,255),3) #这个3是线条粗细
 	cv.imshow("img", img)
 	cv.waitKey(0)
-
+```
 
 <font size = 5>3. convexHull --- 寻找凸包函数</font>
 
@@ -844,6 +867,7 @@ hull：返回值，为凸包角点。可以理解为多边形的点坐标，或�
 clockwise：布尔类型，为True时，凸包角点将按顺时针方向排列；为False时，为逆时针。
 
 returnPoints：布尔类型，默认值True，函数返回凸包角点的x/y坐标；为False时，函数返回轮廓中凸包角点的索引。
+
 ```
 
 	import cv2
@@ -865,7 +889,7 @@ returnPoints：布尔类型，默认值True，函数返回凸包角点的x/y坐�
 	#显示图片
 	cv2.imshow('line', img)
 	cv2.waitKey()
-
+```
 
 ----------
 
@@ -882,6 +906,7 @@ returnPoints：布尔类型，默认值True，函数返回凸包角点的x/y坐�
   
 (2) minMaxLoc函数 --- 寻找全局最大，最小值及其位置
 <font color=blue>a,b,c,d = cv2.minMaxLoc(data)</font>
+
 ```
 
 	import numpy as np
@@ -896,6 +921,7 @@ returnPoints：布尔类型，默认值True，函数返回凸包角点的x/y坐�
 	1.0 67.0 (0, 0) (1, 1)
 
 对比RGB(彩色图片)
+
 ```
 
 	import cv2 as cv
@@ -907,7 +933,7 @@ returnPoints：布尔类型，默认值True，函数返回凸包角点的x/y坐�
 	    plt.plot(hist, color=col)
 	    plt.xlim([0, 256])
 	plt.show()
-
+```
 
 ----------
 
@@ -922,6 +948,7 @@ method - 比较方式
 + 相关性比较 (method=cv.HISTCMP_CORREL) 值越大，相关度越高，最大值为1，最小值为0
 + 卡方比较(method=cv.HISTCMP_CHISQR 值越小，相关度越高，最大值无上界，最小值0
 + 巴氏距离比较(method=cv.HISTCMP_BHATTACHARYYA) 值越小，相关度越高，最大值为1，最小值为0
+
 ```
 
 	import cv2 as cv
@@ -936,6 +963,7 @@ method - 比较方式
 	match2 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_CORREL)
 	match3 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_CHISQR)
 	print("巴氏距离：%s, 相关性：%s, 卡方：%s" %(match1, match2, match3))
+```
 
 ----------
 
@@ -955,6 +983,7 @@ hist：图象的直方图；
 ranges：直方图的变化范围；
 
 scale：输出反投影的可选比例因子
+
 ```
 
 	import cv2 as cv
@@ -977,7 +1006,7 @@ scale：输出反投影的可选比例因子
 	back_projection_demo()
 	cv.waitKey(0)
 	cv.destroyAllWindows()
-
+```
 
 ----------
 
@@ -1015,6 +1044,7 @@ match_method:匹配算法
 (6)归一化相关系数匹配法CV_TM_CCOEFF_NORMED
 
 + 随着从简单的测量(平方差)到更复杂的测量(相关系数),我们可获得越来越准确的匹配(同时也意味着越来越大的计算代价).  
+
 ```
 
 	import cv2 as cv
@@ -1041,7 +1071,7 @@ match_method:匹配算法
 	template_demo()
 	cv.waitKey(0)
 	cv.destroyAllWindows()
-
+```
 
 ----------
 
@@ -1053,13 +1083,14 @@ match_method:匹配算法
 <font color=blue>x, y, w, h = cv2.boundingRect(cnt)</font>
 (x,y)是矩阵的左上点坐标
 (x+w,y+h)是矩阵的右下点坐标
+
 ```
 
 	import cv2
 	#用绿色(0, 255, 0)来画出最小的矩形框架
 	x, y, w, h = cv2.boundingRect(cnt)
 	cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
+```
   
 
 (2)最小包围矩阵
@@ -1068,6 +1099,7 @@ rect = cv2.minAreaRect(cnt) # 得到最小外接矩形的（中心(x,y), (宽,�
 <font color=blue>
 box = cv2.boxPoints(rect) # 获取最小外接矩形的4个顶点坐标(ps: cv2.boxPoints(rect) for OpenCV 3.x)</font>
 
+```
 
 	import cv2
 	import numpy as np
@@ -1081,12 +1113,13 @@ box = cv2.boxPoints(rect) # 获取最小外接矩形的4个顶点坐标(ps: cv2.
 	cv2.imshow("good",img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
-
+```
   
 (3)最小包围圆形
 <font color=blue>
 ((x, y), radius) = cv2.minEnclosingCircle(c)）</font>
 
+```
 
 	import cv2
 	img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
@@ -1099,7 +1132,7 @@ box = cv2.boxPoints(rect) # 获取最小外接矩形的4个顶点坐标(ps: cv2.
 	cv2.imshow("good",img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
-
+```
   
 (4)椭圆多边形二维点集
 <font color=blue>ellipse = cv2.fitEllipse(cnt)</font>
@@ -1108,6 +1141,7 @@ ellipse = [(x,y),(a,b),angle]
 (a,b)代表长短轴长度，应注意a、b为长短轴的直径，而非半径
 angle 代表了中心旋转的角度
 <font color=blue>cv2.ellipse(src, ellipse, (color), width)</font>
+
 ```
 
 	import cv2
@@ -1120,11 +1154,13 @@ angle 代表了中心旋转的角度
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 
+```
   
 (5)逼近多边形曲线
 <font color=blue>approx = cv2.approxPolyDP(contours,epsilon,True)</font>
 epsilon:阈值，若大于这个阈值则该点变为断点，这个值越小越准确
 True:线段会闭合 若改为False则为开
+
 ```
 
 	import cv2
@@ -1136,7 +1172,7 @@ True:线段会闭合 若改为False则为开
 	cv2.imshow("good",img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
-
+```
   
 ----------
 <font size = 5>2. 图像的矩</font>
@@ -1194,7 +1230,7 @@ True:线段会闭合 若改为False则为开
 	cv.imshow("goood",unknown)
 	cv.waitKey(0)
 	cv.destroyAllWindows()
-
+```
 
 ----------
 <font size = 5>4. 图像修补</font>
@@ -1217,6 +1253,7 @@ src:输入的类型要是float32
 blockSize:角点检测中要考虑的邻域大小
 ksize:soble求导使用的核大小
 k:角点检测方程中的自由参数，取值参数为:[0.04,0.06]
+
 ```
 
 	import cv2 as cv
@@ -1236,6 +1273,7 @@ k:角点检测方程中的自由参数，取值参数为:[0.04,0.06]
 	plt.figure(figsize = (10,8),dpi=100)
 	cv.imshow("good",img)
 	cv.waitKey(0)
+```
 
 ----------
 <font size = 5>2. Shi-Tomasi 角点检测</font>
@@ -1246,6 +1284,7 @@ maxcorners:获得角点的数目
 qualityLevel:最低可接受角点质量水平，在[0，1]之间
 minDistance:角点之间的最小欧式距离
 返回:搜索到的角点
+
 ```
 
 	#numpy 中ravel函数
@@ -1255,6 +1294,7 @@ minDistance:角点之间的最小欧式距离
 	#for loop
 	for i in cor:
 	    x,y = np.ravel(i) #或者x,y = i.ravel()
+
 ```
 
 	import cv2 as cv
@@ -1298,6 +1338,7 @@ color 是颜色参数
 flags 是绘图功能标识设置
 + cv.DRAW_MATCHS_FLAGS_DEFAULT 创建图像矩阵，对每一个关键点只绘制中间点
 + cv.DRAW_MATCHS_FLAGS_DRAW_RICH_KEYPOINTS 对每一个特征点绘制带大小和方向的关键点图形
+
 ```
 
 	import cv2 as cv
@@ -1315,9 +1356,10 @@ flags 是绘图功能标识设置
 	
 	cv.imshow("good",img)
 	cv.waitKey(0)
-
+```
 
 <font color=red>实例化suft</font>
+
 ```
 
 	import cv2 
@@ -1334,7 +1376,7 @@ flags 是绘图功能标识设置
 	
 	cv2.imshow('sp',img)
 	cv2.waitKey(0)
-
+```
 
 <font size = 5>3.FAST 算法</font>
 
@@ -1346,6 +1388,7 @@ fast 创建的FastFeatureDetector对象
 
 <font color=blue>kp = fast.detect(grayImg,None)</font>
 kp 是关键点信息，包括位置，尺度，方向信息
+
 ```
 
 	import cv2 as cv
@@ -1360,7 +1403,7 @@ kp 是关键点信息，包括位置，尺度，方向信息
 	cv.drawKeypoints(img, kp,img,(255,255,0))
 	cv.imshow("good",img)
 	cv.waitKey(0)
-
+```
 
 <font size = 5>4.ORB 算法</font>
 
@@ -1370,6 +1413,7 @@ nfeatures 特征点的最大数量
 kp 关键点信息
 des 关键点描述，每个关键点BRIEF特征向量，二进制字符串
 cv.drawKeypoints(image，keypoints，outputimage，color)
+
 ```
 
 	import cv2 as cv
@@ -1385,7 +1429,7 @@ cv.drawKeypoints(image，keypoints，outputimage，color)
 	img2 = cv.drawKeypoints(img, kp,img,(255,255,0))
 	cv.imshow("good",img2)
 	cv.waitKey(0)
-
+```
 -----------
 
 ##参考:
