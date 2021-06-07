@@ -1386,6 +1386,7 @@ cv.drawKeypoints(image，keypoints，outputimage，color)
 	cv.imshow("good",img2)
 	cv.waitKey(0)
 
+-----------
 
 ##参考:
 [黑马程序员人工智能教程_10小时学会图像处理OpenCV入门教程](https://www.bilibili.com/video/BV1Fo4y1d7JL?p=14) 
