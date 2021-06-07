@@ -27,11 +27,11 @@ matplotlib: (彩色图像是RGB)
 
 ```	
 
-	b,g,r=cv2.split(messi) #通道的拆分
-	messi_rgb=cv2.merge((r,g,b)) #通道的融合
-	plt.imshow(messi_rgb),plt.title('messi_rgb_plt')
-	plt.imshow(img[:,:,::-1])
-	:,:,:所有的像素  :-1是翻转
+b,g,r=cv2.split(messi) #通道的拆分
+messi_rgb=cv2.merge((r,g,b)) #通道的融合
+plt.imshow(messi_rgb),plt.title('messi_rgb_plt')
+plt.imshow(img[:,:,::-1])
+:,:,:所有的像素  :-1是翻转
 ```
 
 ----------
@@ -80,13 +80,13 @@ eg：cv.putText(img,'23333',(10,50),font,4,(255,255,255),2,cv_LINE_AA)
 
 ```
 
-	def get_image_info(image):
-	    print (type(image)) #image的类型
-	    print (image.shape) #图像的高，宽，通道数目
-	    print (image.size)  #图像的大小
-	    print (image.dtype) #字节位数
-	    pixel_data = np.array(image)
-	    print (pixel_data)  #输出图片的矩阵
+def get_image_info(image):
+	print (type(image)) #image的类型
+	print (image.shape) #图像的高，宽，通道数目
+	print (image.size)  #图像的大小
+	print (image.dtype) #字节位数
+	pixel_data = np.array(image)
+	print (pixel_data)  #输出图片的矩阵
 ```
 
 
@@ -120,11 +120,11 @@ cv.INTER_CUBIC     双三次插值
 
 ```
 
-	# 2.1 绝对尺寸
-	rows,cols = img1.shape[:2]
-	res = cv.resize(img1,(2*cols,2*rows),interpolation=cv.INTER_CUBIC)
-	# 2.2 相对尺寸
-	res1 = cv.resize(img1,None,fx=0.5,fy=0.5,interpolation=cv.INTER_CUBIC)
+# 2.1 绝对尺寸
+rows,cols = img1.shape[:2]
+res = cv.resize(img1,(2*cols,2*rows),interpolation=cv.INTER_CUBIC)
+# 2.2 相对尺寸
+res1 = cv.resize(img1,None,fx=0.5,fy=0.5,interpolation=cv.INTER_CUBIC)
 ```
 
 
@@ -141,9 +141,9 @@ M： 2*∗3移动矩阵
 dsize: 输出图像的大小
 
 ```
-	rows,cols = img1.shape[:2]
-	M = M = np.float32([[1,0,100],[0,1,50]])# 平移矩阵
-	dst = cv.warpAffine(img1,M,(cols,rows))
+rows,cols = img1.shape[:2]
+M = M = np.float32([[1,0,100],[0,1,50]])# 平移矩阵
+dst = cv.warpAffine(img1,M,(cols,rows))
 ```
 
 (3)图像旋转
@@ -160,13 +160,13 @@ scale：缩放比例
 
 ```
 
-	# 2 图像旋转
-	rows,cols = img.shape[:2]
-	# 2.1 生成旋转矩阵
-	M = cv.getRotationMatrix2D((cols/2,rows/2),90,1)
-	# 2.2 进行旋转变换
-	dst = cv.warpAffine(img,M,(cols,rows))
-	#(cols,rows)这个是旋转后的图像大小规定
+# 2 图像旋转
+rows,cols = img.shape[:2]
+# 2.1 生成旋转矩阵
+M = cv.getRotationMatrix2D((cols/2,rows/2),90,1)
+# 2.2 进行旋转变换
+dst = cv.warpAffine(img,M,(cols,rows))
+#(cols,rows)这个是旋转后的图像大小规定
 ```
 
 -----------
@@ -200,7 +200,7 @@ scale：缩放比例
 <font color=red>滤波核</font>：大小是5×5时，则取其自身和周围24个像素值的均值来代替当前像素值
 ```
 
-    img_mean = cv2.blur(img, (5,5))
+img_mean = cv2.blur(img, (5,5))
 ```
 
 ----------
@@ -246,11 +246,11 @@ scale：缩放比例
 
 ```
 
-    import cv2 as cv
-    import numpy as np 
-    img = cv.imread('j.png',0)
-    kernel = np.ones((5,5),np.uint8)  
-    erosion = cv.erode(img,kernel,iterations = 1)
+import cv2 as cv
+import numpy as np 
+img = cv.imread('j.png',0)
+kernel = np.ones((5,5),np.uint8)  
+erosion = cv.erode(img,kernel,iterations = 1)
 
 ```
 
@@ -322,35 +322,35 @@ scale：缩放比例
 eg:
 ```
 
-	#FIXED_RANGE:
-	import numpy as np
-	import cv2 as cv
-	img = np.zeros((512,512,3), np.uint8)
-	img[:, :, : ] = 255
-	cv.rectangle(img,(10,10),(502,502),(255,0,0),3)
-	cv.circle(img,(230,256), 15, (100,100,100),-1)
-	cv.circle(img,(282,256), 15, (100,100,100),-1)
-	copyIma = img.copy()
-	h, w = img.shape[:2]
-	print(h, w)
-	mask = np.zeros([h+2, w+2], np.uint8)
-	cv.floodFill(copyIma, mask, (100, 100), (20, 0, 99), (200, 200, 200), (0, 0, 0), cv.FLOODFILL_FIXED_RANGE)  
-	cv.imshow("img_1",copyIma)
-	cv.imshow("img_2",img)
-	cv.waitKey(0)
+#FIXED_RANGE:
+import numpy as np
+import cv2 as cv
+img = np.zeros((512,512,3), np.uint8)
+img[:, :, : ] = 255
+cv.rectangle(img,(10,10),(502,502),(255,0,0),3)
+cv.circle(img,(230,256), 15, (100,100,100),-1)
+cv.circle(img,(282,256), 15, (100,100,100),-1)
+copyIma = img.copy()
+h, w = img.shape[:2]
+print(h, w)
+mask = np.zeros([h+2, w+2], np.uint8)
+cv.floodFill(copyIma, mask, (100, 100), (20, 0, 99), (200, 200, 200), (0, 0, 0), cv.FLOODFILL_FIXED_RANGE)  
+cv.imshow("img_1",copyIma)
+cv.imshow("img_2",img)
+cv.waitKey(0)
  
-	#MASK_ONLY:
-	import numpy as np
-	import cv2 as cv
-	image = np.zeros([400, 400, 3], np.uint8)
-	image[100:300, 100:300, : ] = 255
-	cv.imshow("fill_binary", image)
-	cv.waitKey(10)
-	mask = np.ones([402, 402, 1], np.uint8)
-	mask[151:251, 151:251] = 0
-	cv.floodFill(image, mask, (200, 200), (255,255,0), cv.FLOODFILL_MASK_ONLY)
-	cv.imshow("img",image)
-	cv.waitKey(0)
+#MASK_ONLY:
+import numpy as np
+import cv2 as cv
+image = np.zeros([400, 400, 3], np.uint8)
+image[100:300, 100:300, : ] = 255
+cv.imshow("fill_binary", image)
+cv.waitKey(10)
+mask = np.ones([402, 402, 1], np.uint8)
+mask[151:251, 151:251] = 0
+cv.floodFill(image, mask, (200, 200), (255,255,0), cv.FLOODFILL_MASK_ONLY)
+cv.imshow("img",image)
+cv.waitKey(0)
 
 ```
 
@@ -379,20 +379,20 @@ L:拉普拉斯金字塔图像
 
 ```
 
-	import cv2 as cv
-	img = cv.imread("F:\\CISDI\\1st\\test_image\\2.jfif")
-	img_0 = cv.pyrDown(img)
-	img_up_0 = cv.pyrUp(img_0)
-	img_la_0 = img - img_up_0
-	img_1 = cv.pyrDown(img_0)
-	img_up_1 = cv.pyrUp(img_1)
-	img_la_1 = img_0 - img_up_1
-	cv.imshow("img",img)
-	cv.imshow("img_0",img_0)
-	cv.imshow("img_1",img_1)
-	cv.imshow("img_la_0",img_la_0)
-	cv.imshow("img_la_1",img_la_1)
-	cv.waitKey(0)
+import cv2 as cv
+img = cv.imread("F:\\CISDI\\1st\\test_image\\2.jfif")
+img_0 = cv.pyrDown(img)
+img_up_0 = cv.pyrUp(img_0)
+img_la_0 = img - img_up_0
+img_1 = cv.pyrDown(img_0)
+img_up_1 = cv.pyrUp(img_1)
+img_la_1 = img_0 - img_up_1
+cv.imshow("img",img)
+cv.imshow("img_0",img_0)
+cv.imshow("img_1",img_1)
+cv.imshow("img_la_0",img_la_0)
+cv.imshow("img_la_1",img_la_1)
+cv.waitKey(0)
 ```
 
 ----------
@@ -429,19 +429,19 @@ type参数表示阈值类型。
 
 ```
 
-	import cv2 as cv
-	img = cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg",0)
-	retval,dst = cv.threshold(img, 178, 256,cv.THRESH_TRUNC) #这个时候“256”没有实际用途因为阈值化的方法是cv.THRESH_TRUNC
-	print([type(dst)])
-	cv.imshow("A",dst)
-	cv.waitKey(0)
+import cv2 as cv
+img = cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg",0)
+retval,dst = cv.threshold(img, 178, 256,cv.THRESH_TRUNC) #这个时候“256”没有实际用途因为阈值化的方法是cv.THRESH_TRUNC
+print([type(dst)])
+cv.imshow("A",dst)
+cv.waitKey(0)
   
-	import cv2 as cv
-	img = cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg",0)
-	retval,dst = cv.threshold(img, 178,100,cv.THRESH_BINARY) #如果这个100设为255，就是把图片进行二值化
-	print([type(dst)])
-	cv.imshow("A",dst)
-	cv.waitKey(0)
+import cv2 as cv
+img = cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg",0)
+retval,dst = cv.threshold(img, 178,100,cv.THRESH_BINARY) #如果这个100设为255，就是把图片进行二值化
+print([type(dst)])
+cv.imshow("A",dst)
+cv.waitKey(0)
 ```
 
 
@@ -465,11 +465,11 @@ type参数表示阈值类型。
 
 ```
 
-	import cv2 as cv
-	src = cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg",0)
-	dst = cv.adaptiveThreshold(src, 200, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 9, 4)
-	cv.imshow("A",dst)
-	cv.waitKey(0)
+import cv2 as cv
+src = cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg",0)
+dst = cv.adaptiveThreshold(src, 200, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 9, 4)
+cv.imshow("A",dst)
+cv.waitKey(0)
 ```
 
 ----------
@@ -493,11 +493,11 @@ threshold2:阈值2 - maxVal阈值2
 
 ```
 
-	import cv2 as cv
-	src = cv.imread("F:\\CISDI\\1st\\test_image\\diff.jpg",0)
-	dst = cv.Canny(src,20,30)
-	cv.imshow("A",dst)
-	cv.waitKey(0)
+import cv2 as cv
+src = cv.imread("F:\\CISDI\\1st\\test_image\\diff.jpg",0)
+dst = cv.Canny(src,20,30)
+cv.imshow("A",dst)
+cv.waitKey(0)
 ```
 
 (2)Sobel算子 --- 计算不同方向的梯度
@@ -516,18 +516,18 @@ ksize:核大小，默认3
 
 ```
 
-	import cv2 
-	img = cv2.imread("F:\\CISDI\\1st\\test_image\\diff.jpg", 0)
-	x = cv2.Sobel(img,cv2.CV_64F,1,0)
-	y = cv2.Sobel(img,cv2.CV_64F,0,1)
-	absX = cv2.convertScaleAbs(x)   # 转回uint8
-	absY = cv2.convertScaleAbs(y)
-	dst = cv2.addWeighted(absX,0.5,absY,0.5,0) #两个值相加来合成一个图的数据。这个0.5是系数及个	体的权重。0代表的是修正值。
-	cv2.imshow("absX", absX)
-	cv2.imshow("absY", absY)
-	cv2.imshow("Result", dst)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows() 
+import cv2 
+img = cv2.imread("F:\\CISDI\\1st\\test_image\\diff.jpg", 0)
+x = cv2.Sobel(img,cv2.CV_64F,1,0)
+y = cv2.Sobel(img,cv2.CV_64F,0,1)
+absX = cv2.convertScaleAbs(x)   # 转回uint8
+absY = cv2.convertScaleAbs(y)
+dst = cv2.addWeighted(absX,0.5,absY,0.5,0) #两个值相加来合成一个图的数据。这个0.5是系数及个	体的权重。0代表的是修正值。
+cv2.imshow("absX", absX)
+cv2.imshow("absY", absY)
+cv2.imshow("Result", dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows() 
 ```
 
 <font color=red>在Sobel函数的第二个参数这里使用了cv2.CV_64F。即Sobel函数求完导数后会有负值，还有会大于255的值。而原图像是uint8，即8位无符号数，所以Sobel建立的图像位数不够，会有截断。因此要改变类型  </font>
@@ -540,18 +540,18 @@ absX = cv2.convertScaleAbs(src) #将原始图像转为256色位图
 <font color=red>精确度比sobel算子高</font>
 ```
 
-	import cv2 
-	img = cv2.imread("F:\\CISDI\\1st\\test_image\\diff.jpg", 0)
-	x = cv2.Scharr(img,cv2.CV_64F,1,0)
-	y = cv2.Scharr(img,cv2.CV_64F,0,1)
-	absX = cv2.convertScaleAbs(x)   # 转回uint8
-	absY = cv2.convertScaleAbs(y)
-	dst = cv2.addWeighted(absX,0.5,absY,0.5,0) #两个值相加来合成一个图的数据。这个0.5是系数及个体的权重。0代表的是修正值。
-	cv2.imshow("absX", absX)
-	cv2.imshow("absY", absY)
-	cv2.imshow("Result", dst)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows() 
+import cv2 
+img = cv2.imread("F:\\CISDI\\1st\\test_image\\diff.jpg", 0)
+x = cv2.Scharr(img,cv2.CV_64F,1,0)
+y = cv2.Scharr(img,cv2.CV_64F,0,1)
+absX = cv2.convertScaleAbs(x)   # 转回uint8
+absY = cv2.convertScaleAbs(y)
+dst = cv2.addWeighted(absX,0.5,absY,0.5,0) #两个值相加来合成一个图的数据。这个0.5是系数及个体的权重。0代表的是修正值。
+cv2.imshow("absX", absX)
+cv2.imshow("absY", absY)
+cv2.imshow("Result", dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows() 
 ```
 
 
@@ -563,13 +563,13 @@ absX = cv2.convertScaleAbs(src) #将原始图像转为256色位图
 
 ```
 
-	import cv2 
-	img = cv2.imread("F:\\CISDI\\1st\\test_image\\diff.jpg", 0)
-	x = cv2.Laplacian(img,cv2.CV_64F)
-	res = cv2.convertScaleAbs(x)   # 转回uint8
-	cv2.imshow("res", res)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows() 
+import cv2 
+img = cv2.imread("F:\\CISDI\\1st\\test_image\\diff.jpg", 0)
+x = cv2.Laplacian(img,cv2.CV_64F)
+res = cv2.convertScaleAbs(x)   # 转回uint8
+cv2.imshow("res", res)
+cv2.waitKey(0)
+cv2.destroyAllWindows() 
 ```
 
 -----------
@@ -589,33 +589,34 @@ threshold:阈值，要大于这个阈值才算直线
 
 ```
 
-	#一小段矩阵结构解释
-	import numpy as np
-	a = np.zeros((2,3))
-	print(a)
-	b = a[0]
-	print(b)
+#一小段矩阵结构解释
+import numpy as np
+a = np.zeros((2,3))
+print(a)
+b = a[0]
+print(b)
+```
 ```
 
-	import numpy as np
-	import cv2 as cv
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\diff.jpg')
-	gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-	edges = cv.Canny(gray, 50, 150)
-	lines = cv.HoughLines(edges, 0.8, np.pi / 180, 150)
-	#画图开始
-	for line in lines:
-	    print(line)
-	    rho, theta = line[0]
-	    a = np.cos(theta)
-	    b = np.sin(theta)
-	    x0 = a * rho
-	    y0 = b * rho
-	    x1 = int(x0 + 1000 * (-b))
-	    y1 = int(y0 + 1000 * (a))
-	    x2 = int(x0 - 1000 * (-b))
-	    y2 = int(y0 - 1000 * (a))
-	    cv.line(img, (x1, y1), (x2, y2), (255, 255, 255))
+import numpy as np
+import cv2 as cv
+img = cv.imread('F:\\CISDI\\1st\\test_image\\diff.jpg')
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+edges = cv.Canny(gray, 50, 150)
+lines = cv.HoughLines(edges, 0.8, np.pi / 180, 150)
+#画图开始
+for line in lines:
+	print(line)
+	rho, theta = line[0]
+	a = np.cos(theta)
+	b = np.sin(theta)
+	x0 = a * rho
+	y0 = b * rho
+	x1 = int(x0 + 1000 * (-b))
+	y1 = int(y0 + 1000 * (a))
+	x2 = int(x0 - 1000 * (-b))
+	y2 = int(y0 - 1000 * (a))
+	cv.line(img, (x1, y1), (x2, y2), (255, 255, 255))
 	cv.imshow("out", img)
 	cv.waitKey(0)
  ```
@@ -637,22 +638,20 @@ param2：检测圆心和确定半径时所共有的阈值
 minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 ```
 
-	import cv2 as cv
-	import numpy
+import cv2 as cv
+import numpy
 	
-	
-	def hough_circle_demo(image):
-	    # 霍夫圆检测对噪声敏感，边缘检测消噪
-	    dst = cv.pyrMeanShiftFiltering(image, 10, 100)  # 边缘保留滤波EPF
-	    gray = cv.cvtColor(dst, cv.COLOR_BGR2GRAY)
-	    circles = cv.HoughCircles(gray, cv.HOUGH_GRADIENT, 1, 20, param1=50, param2=30, minRadius=0, maxRadius=0)
-	    circles = numpy.uint16(numpy.around(circles))  #把circles包含的圆心和半径的值变成整数
-	    for i in circles[0,:]:
-	        cv.circle(image, (i[0], i[1]), i[2], (0, 0, 255), 2)
-	        cv.circle(image, (i[0], i[1]), 2, (255, 0, 0), 2)
+def hough_circle_demo(image):
+	# 霍夫圆检测对噪声敏感，边缘检测消噪
+	dst = cv.pyrMeanShiftFiltering(image, 10, 100)  # 边缘保留滤波EPF
+	gray = cv.cvtColor(dst, cv.COLOR_BGR2GRAY)
+	circles = cv.HoughCircles(gray, cv.HOUGH_GRADIENT, 1, 20, param1=50, param2=30, minRadius=0, maxRadius=0)
+	circles = numpy.uint16(numpy.around(circles))  #把circles包含的圆心和半径的值变成整数
+	 for i in circles[0,:]:
+	    cv.circle(image, (i[0], i[1]), i[2], (0, 0, 255), 2)
+	    cv.circle(image, (i[0], i[1]), 2, (255, 0, 0), 2)
 	    cv.imshow("circle image", image)
-	
-	
+		
 	src = cv.imread("F:\\CISDI\\1st\\test_image\\1_m.jpg")
 	cv.namedWindow("coins", cv.WINDOW_AUTOSIZE)
 	cv.imshow("coins", src)
@@ -680,24 +679,24 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 
 ```
 
-	#上下颠倒
-	import cv2
-	import numpy as np
-	src = cv2.imread("F:/CISDI/1st/test_image/1.jpg")
-	rows,cols,channels = src.shape
-	img_x = np.zeros((rows,cols),np.float32)
-	img_y = np.zeros((rows,cols),np.float32)
-	#坐标映射
-	for y in range(rows):
-	    for x in range(cols):
-	        img_y[y,x] = rows - y
-	        img_x[y,x] = cols - x
-	        
-	dst = cv2.remap(src,img_x,img_y,cv2.INTER_LINEAR)
-	cv2.imshow('src',src)
-	cv2.imshow('dst',dst)
-	cv2.waitKey()
-	cv2.destroyAllWindows()
+#上下颠倒
+import cv2
+import numpy as np
+src = cv2.imread("F:/CISDI/1st/test_image/1.jpg")
+rows,cols,channels = src.shape
+img_x = np.zeros((rows,cols),np.float32)
+img_y = np.zeros((rows,cols),np.float32)
+#坐标映射
+for y in range(rows):
+    for x in range(cols):
+        img_y[y,x] = rows - y
+        img_x[y,x] = cols - x
+        
+dst = cv2.remap(src,img_x,img_y,cv2.INTER_LINEAR)
+cv2.imshow('src',src)
+cv2.imshow('dst',dst)
+cv2.waitKey()
+cv2.destroyAllWindows()
 ```
 
 ----------
@@ -710,19 +709,19 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 
 ```
 
-	img = cv2.imread('Rachel.jpg')
-	rows, cols, ch = img.shape
-	pts1 = np.float32([[0, 0], [10, 0], [0, 10]])
-	pts2 = np.float32([[10, 0], [20, 0], [0, 10]])
-	# pts1是原图中的3的参考点，pts2是变化的。后面的坐标分别对于在新旧图中的坐标
-	M = cv2.getAffineTransform(pts1, pts2)
-	# 把pts1/2构建成矩阵
-	dst = cv2.warpAffine(img, M, (cols, rows))
-	cv2.imshow('image', dst)
-	k = cv2.waitKey(0)
-	if k == ord('s'):
-	    cv2.imwrite('Rachel1.jpg', dst)
-	    cv2.destroyAllWindows()
+img = cv2.imread('Rachel.jpg')
+rows, cols, ch = img.shape
+pts1 = np.float32([[0, 0], [10, 0], [0, 10]])
+pts2 = np.float32([[10, 0], [20, 0], [0, 10]])
+# pts1是原图中的3的参考点，pts2是变化的。后面的坐标分别对于在新旧图中的坐标
+M = cv2.getAffineTransform(pts1, pts2)
+# 把pts1/2构建成矩阵
+dst = cv2.warpAffine(img, M, (cols, rows))
+cv2.imshow('image', dst)
+k = cv2.waitKey(0)
+if k == ord('s'):
+    cv2.imwrite('Rachel1.jpg', dst)
+    cv2.destroyAllWindows()
 ```
 
 ---------
@@ -731,11 +730,11 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 
 ```
 
-	#1.创建蒙版
-	mask = np.zeros(img.shape[:2], np.uint8)
-	mask[400:650, 200:500] = 255
-	#2.掩模
-	masked_img = cv.bitwise_and(img,img,mask = mask)
+#1.创建蒙版
+mask = np.zeros(img.shape[:2], np.uint8)
+mask[400:650, 200:500] = 255
+#2.掩模
+masked_img = cv.bitwise_and(img,img,mask = mask)
 ```
 
 ---------
@@ -752,18 +751,18 @@ minRadius和maxRadius为所检测到的圆半径的最小值和最大值
 
 ```
 
-	import numpy as np
-	import cv2 as cv
-	from matplotlib import pyplot as plt
-	# 1 直接以灰度图的方式读入
-	img = cv.imread('./image/cat.jpeg',0)
-	# 2 统计灰度图
-	histr = cv.calcHist([img],[0],None,[256],[0,256])
-	# 3 绘制灰度图
-	plt.figure(figsize=(10,6),dpi=100)
-	plt.plot(histr)
-	plt.grid()
-	plt.show()
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+# 1 直接以灰度图的方式读入
+img = cv.imread('./image/cat.jpeg',0)
+# 2 统计灰度图
+histr = cv.calcHist([img],[0],None,[256],[0,256])
+# 3 绘制灰度图
+plt.figure(figsize=(10,6),dpi=100)
+plt.plot(histr)
+plt.grid()
+plt.show()
 ```
 
 (2)直方图均衡化
@@ -782,7 +781,7 @@ tileGridSize: 分块的大小，默认为8*8
 
 ```
 	
-	clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
 ```
 ---------
@@ -841,19 +840,19 @@ mode的分类:
 
 ```
 
-	import numpy as np
-	import cv2 as cv
-	img = np.zeros((512,512,3), np.uint8)
-	img[:, :, : ] = 255
-	cv.rectangle(img,(10,10),(502,502),(255,0,0),3)
-	cv.circle(img,(230,256), 15, (255,0,0),-1)
-	cv.circle(img,(282,256), 15, (255,0,0),-1)
-	gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-	ret, binary = cv.threshold(gray,127,255,cv.THRESH_BINARY)
-	contours, hierarchy = cv.findContours(gray,cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
-	cv.drawContours(img,contours,3,(255,255,255),3) #这个3是线条粗细
-	cv.imshow("img", img)
-	cv.waitKey(0)
+import numpy as np
+import cv2 as cv
+img = np.zeros((512,512,3), np.uint8)
+img[:, :, : ] = 255
+cv.rectangle(img,(10,10),(502,502),(255,0,0),3)
+cv.circle(img,(230,256), 15, (255,0,0),-1)
+cv.circle(img,(282,256), 15, (255,0,0),-1)
+gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+ret, binary = cv.threshold(gray,127,255,cv.THRESH_BINARY)
+contours, hierarchy = cv.findContours(gray,cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
+cv.drawContours(img,contours,3,(255,255,255),3) #这个3是线条粗细
+cv.imshow("img", img)
+cv.waitKey(0)
 ```
 
 <font size = 5>3. convexHull --- 寻找凸包函数</font>
@@ -870,25 +869,25 @@ returnPoints：布尔类型，默认值True，函数返回凸包角点的x/y坐�
 
 ```
 
-	import cv2
-	#读取图片并转至灰度模式
-	img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
-	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	#二值化
-	ret, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
-	#图片轮廓
-	contours, hierarchy = cv2.findContours(thresh, 2, 1)
-	cnt = contours[0] -- 0 指contours中的父子结构
-	print(contours)
-	#寻找凸包并绘制凸包（轮廓）
-	hull = cv2.convexHull(cnt)
-	length = len(hull)
-	for i in range(len(hull)):
-	    #tuple - 元组，这里的作用是把[]变为()来表示坐标
-	    cv2.line(img, tuple(hull[i][0]), tuple(hull[(i+1)%length][0]), (0,255,0), 2)
-	#显示图片
-	cv2.imshow('line', img)
-	cv2.waitKey()
+import cv2
+#读取图片并转至灰度模式
+img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#二值化
+ret, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+#图片轮廓
+contours, hierarchy = cv2.findContours(thresh, 2, 1)
+cnt = contours[0] -- 0 指contours中的父子结构
+print(contours)
+#寻找凸包并绘制凸包（轮廓）
+hull = cv2.convexHull(cnt)
+length = len(hull)
+for i in range(len(hull)):
+    #tuple - 元组，这里的作用是把[]变为()来表示坐标
+    cv2.line(img, tuple(hull[i][0]), tuple(hull[(i+1)%length][0]), (0,255,0), 2)
+#显示图片
+cv2.imshow('line', img)
+cv2.waitKey()
 ```
 
 ----------
@@ -909,30 +908,33 @@ returnPoints：布尔类型，默认值True，函数返回凸包角点的x/y坐�
 
 ```
 
-	import numpy as np
-	import cv2
-	a=np.array([[1,2,3,4],[5,67,8,9]])
-	min_val,max_val,min_indx,max_indx=cv2.minMaxLoc(a)
-	print(min_val,max_val,min_indx,max_indx)
+import numpy as np
+import cv2
+a=np.array([[1,2,3,4],[5,67,8,9]])
+min_val,max_val,min_indx,max_indx=cv2.minMaxLoc(a)
+print(min_val,max_val,min_indx,max_indx)
 
 ```
 
-	out:
-	1.0 67.0 (0, 0) (1, 1)
+```
 
+out:
+1.0 67.0 (0, 0) (1, 1)
 对比RGB(彩色图片)
 
 ```
 
-	import cv2 as cv
-	from matplotlib import pyplot as plt
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\diff.webp')
-	color = ('b', 'g', 'r')
-	for i, col in enumerate(color):
-	    hist = cv.calcHist([img], [i], None, [256], [0, 256])
-	    plt.plot(hist, color=col)
-	    plt.xlim([0, 256])
-	plt.show()
+```
+
+import cv2 as cv
+from matplotlib import pyplot as plt
+img = cv.imread('F:\\CISDI\\1st\\test_image\\diff.webp')
+color = ('b', 'g', 'r')
+for i, col in enumerate(color):
+    hist = cv.calcHist([img], [i], None, [256], [0, 256])
+    plt.plot(hist, color=col)
+    plt.xlim([0, 256])
+plt.show()
 ```
 
 ----------
@@ -951,18 +953,18 @@ method - 比较方式
 
 ```
 
-	import cv2 as cv
-	from matplotlib import pyplot as plt
-	src_1 = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
-	src_2 = cv.imread('F:\\CISDI\\1st\\test_image\\2_2.jfif')
-	dst_1 = cv.calcHist([src_1],[0],None,[256],[0,256])
-	dst_2 = cv.calcHist([src_2],[0],None,[256],[0,256])
-	plt.plot(dst_1, label='A', color='b')
-	plt.plot(dst_2, label='B', color='r')
-	match1 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_BHATTACHARYYA)
-	match2 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_CORREL)
-	match3 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_CHISQR)
-	print("巴氏距离：%s, 相关性：%s, 卡方：%s" %(match1, match2, match3))
+import cv2 as cv
+from matplotlib import pyplot as plt
+src_1 = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+src_2 = cv.imread('F:\\CISDI\\1st\\test_image\\2_2.jfif')
+dst_1 = cv.calcHist([src_1],[0],None,[256],[0,256])
+dst_2 = cv.calcHist([src_2],[0],None,[256],[0,256])
+plt.plot(dst_1, label='A', color='b')
+plt.plot(dst_2, label='B', color='r')
+match1 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_BHATTACHARYYA)
+match2 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_CORREL)
+match3 = cv.compareHist(dst_1, dst_2, cv.HISTCMP_CHISQR)
+print("巴氏距离：%s, 相关性：%s, 卡方：%s" %(match1, match2, match3))
 ```
 
 ----------
@@ -986,26 +988,26 @@ scale：输出反投影的可选比例因子
 
 ```
 
-	import cv2 as cv
-	from matplotlib import pyplot as plt
-	def back_projection_demo():
-	    # 读取图片
-	    test = cv.imread("test1.jpg")
-	    target = cv.imread("target.jpeg")
-	    # 转换为 HSV 格式
-	    roi_hsv = cv.cvtColor(test, cv.COLOR_BGR2HSV)
-	    target_hsv = cv.cvtColor(target, cv.COLOR_BGR2HSV)
-	    cv.imshow("sample", test)
-	    cv.imshow("target", target)
-	    # 计算直方图
-	    roiHist = cv.calcHist([roi_hsv], [0, 1], None, [64, 64], [0, 180, 0, 256])
-	    # 获取直方图的反向投影
-	    dst = cv.calcBackProject([target_hsv], [0, 1],
-	                             roiHist, [0, 180, 0, 256], 1)
-	    cv.imshow("back_projection_demo", dst)
-	back_projection_demo()
-	cv.waitKey(0)
-	cv.destroyAllWindows()
+import cv2 as cv
+from matplotlib import pyplot as plt
+def back_projection_demo():
+    # 读取图片
+    test = cv.imread("test1.jpg")
+    target = cv.imread("target.jpeg")
+    # 转换为 HSV 格式
+    roi_hsv = cv.cvtColor(test, cv.COLOR_BGR2HSV)
+    target_hsv = cv.cvtColor(target, cv.COLOR_BGR2HSV)
+    cv.imshow("sample", test)
+    cv.imshow("target", target)
+    # 计算直方图
+    roiHist = cv.calcHist([roi_hsv], [0, 1], None, [64, 64], [0, 180, 0, 256])
+    # 获取直方图的反向投影
+    dst = cv.calcBackProject([target_hsv], [0, 1],
+                             roiHist, [0, 180, 0, 256], 1)
+    cv.imshow("back_projection_demo", dst)
+back_projection_demo()
+cv.waitKey(0)
+cv.destroyAllWindows()
 ```
 
 ----------
@@ -1047,30 +1049,30 @@ match_method:匹配算法
 
 ```
 
-	import cv2 as cv
-	import numpy as np
-	def template_demo():
-	    tp1 =cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg")
-	    target = cv.imread("F:\\CISDI\\1st\\test_image\\diff.jpg")
-	    cv.imshow("tpl",tp1)
-	    cv.imshow("target",target)
-	    methods =[cv.TM_SQDIFF_NORMED,cv.TM_CCORR_NORMED,cv.TM_CCOEFF_NORMED]
-	    th ,tw=tp1.shape[:2]
-	    for md in methods:
-	        print(md)
-	        result =cv.matchTemplate(target,tp1,md)
-	        #来找画方框的起点
-	        min_val,max_val,min_loc,max_loc=cv.minMaxLoc(result)
-	        if md==cv.TM_SQDIFF_NORMED:
-	            tl=min_loc
-	        else:
-	            tl=max_loc
-	        br =(tl[0]+tw,tl[1]+th)
-	        cv.rectangle(target,tl,br,(0,0,255),2)
-	        cv.imshow("match"+np.str(md),target)
-	template_demo()
-	cv.waitKey(0)
-	cv.destroyAllWindows()
+import cv2 as cv
+import numpy as np
+def template_demo():
+    tp1 =cv.imread("F:\\CISDI\\1st\\test_image\\diff_1_1.jpg")
+    target = cv.imread("F:\\CISDI\\1st\\test_image\\diff.jpg")
+    cv.imshow("tpl",tp1)
+    cv.imshow("target",target)
+    methods =[cv.TM_SQDIFF_NORMED,cv.TM_CCORR_NORMED,cv.TM_CCOEFF_NORMED]
+    th ,tw=tp1.shape[:2]
+    for md in methods:
+        print(md)
+        result =cv.matchTemplate(target,tp1,md)
+        #来找画方框的起点
+        min_val,max_val,min_loc,max_loc=cv.minMaxLoc(result)
+        if md==cv.TM_SQDIFF_NORMED:
+            tl=min_loc
+        else:
+            tl=max_loc
+        br =(tl[0]+tw,tl[1]+th)
+        cv.rectangle(target,tl,br,(0,0,255),2)
+        cv.imshow("match"+np.str(md),target)
+template_demo()
+cv.waitKey(0)
+cv.destroyAllWindows()
 ```
 
 ----------
@@ -1086,10 +1088,10 @@ match_method:匹配算法
 
 ```
 
-	import cv2
-	#用绿色(0, 255, 0)来画出最小的矩形框架
-	x, y, w, h = cv2.boundingRect(cnt)
-	cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+import cv2
+#用绿色(0, 255, 0)来画出最小的矩形框架
+x, y, w, h = cv2.boundingRect(cnt)
+cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 ```
   
 
@@ -1101,18 +1103,18 @@ box = cv2.boxPoints(rect) # 获取最小外接矩形的4个顶点坐标(ps: cv2.
 
 ```
 
-	import cv2
-	import numpy as np
-	img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
-	cnt = np.array([[200,250], [250,300], [300, 270], [270,200], [120, 240]], np.int32)必须是array数组的形式 -- (这里的例子是一个四边形)
-	rect = cv2.minAreaRect(cnt) # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
-	box = cv2.boxPoints(rect) # 获取最小外接矩形的4个顶点坐标(ps: cv2.boxPoints(rect) for OpenCV 3.x)
-	box = np.int0(box) #把浮点数变为整数
-	#画出来
-	cv2.drawContours(img, [box], 0, (255, 255, 0), 2) #这个box是个四点轮廓list
-	cv2.imshow("good",img)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+import cv2
+import numpy as np
+img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
+cnt = np.array([[200,250], [250,300], [300, 270], [270,200], [120, 240]], np.int32)必须是array组的形式 -- (这里的例子是一个四边形)
+rect = cv2.minAreaRect(cnt) # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
+box = cv2.boxPoints(rect) # 获取最小外接矩形的4个顶点坐标(ps: cv2.boxPoints(rect) for OpenCV 3.x)
+box = np.int0(box) #把浮点数变为整数
+#画出来
+cv2.drawContours(img, [box], 0, (255, 255, 0), 2) #这个box是个四点轮廓list
+cv2.imshow("good",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 ```
   
 (3)最小包围圆形
@@ -1121,17 +1123,17 @@ box = cv2.boxPoints(rect) # 获取最小外接矩形的4个顶点坐标(ps: cv2.
 
 ```
 
-	import cv2
-	img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
-	thresh = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-	contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-	((x, y), radius) = cv2.minEnclosingCircle(contours[0])
-	print(contours[0])
-	((x, y), radius) = cv2.minEnclosingCircle(contours[0])
-	img = cv2.circle(img, (int(x), int(y)), int(radius),(255, 255, 0), 2)
-	cv2.imshow("good",img)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+import cv2
+img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
+thresh = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+((x, y), radius) = cv2.minEnclosingCircle(contours[0])
+print(contours[0])
+((x, y), radius) = cv2.minEnclosingCircle(contours[0])
+img = cv2.circle(img, (int(x), int(y)), int(radius),(255, 255, 0), 2)
+cv2.imshow("good",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 ```
   
 (4)椭圆多边形二维点集
@@ -1144,15 +1146,15 @@ angle 代表了中心旋转的角度
 
 ```
 
-	import cv2
-	img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
-	thresh = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-	contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-	ellipse = cv2.fitEllipse(contours[0])
-	cv2.ellipse(img, ellipse, (255,255,0),3)
-	cv2.imshow("good",img)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+import cv2
+img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
+thresh = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+ellipse = cv2.fitEllipse(contours[0])
+cv2.ellipse(img, ellipse, (255,255,0),3)
+cv2.imshow("good",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 ```
   
@@ -1163,15 +1165,15 @@ True:线段会闭合 若改为False则为开
 
 ```
 
-	import cv2
-	img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
-	thresh = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-	contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-	approx = cv2.approxPolyDP(contours[0], 4, True)
-	cv2.polylines(img, [approx], True, (255, 0, 0), 2)
-	cv2.imshow("good",img)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+import cv2
+img = cv2.imread('F:\\CISDI\\1st\\test_image\\2333.PNG')
+thresh = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+approx = cv2.approxPolyDP(contours[0], 4, True)
+cv2.polylines(img, [approx], True, (255, 0, 0), 2)
+cv2.imshow("good",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 ```
   
 ----------
@@ -1187,49 +1189,49 @@ True:线段会闭合 若改为False则为开
 
 ```
 
-	import numpy as np
-	import cv2 as cv
+import numpy as np
+import cv2 as cv
+
+
+#将图片进行二值化
+img = cv.imread('F:\\CISDI\\1st\\test_image\\water.png')
+gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+ret, thresh = cv.threshold(gray,0,255,cv.THRESH_BINARY_INV+cv.THRESH_OTSU)
+
 	
+#减噪处理
+kernel = np.ones((3,3),np.uint8)
+opening = cv.morphologyEx(thresh,cv.MORPH_OPEN,kernel, iterations = 2)
+
+# 形态学膨胀
+sure_bg = cv.dilate(opening,kernel,iterations=3)
+
+# Finding sure foreground area
+#函数distanceTransform()用于计算图像中每一个非零点像素与其最近的零点像素之间的距离，输出的是保存每一个非零点与最近零点的距离信息
+#可以根据距离变换的这个性质，经过简单的运算，用于细化字符的轮廓和查找物体质心(中心)
+dist_transform = cv.distanceTransform(opening,cv.DIST_L2,5)
+
+ret, sure_fg = cv.threshold(dist_transform,0.7*dist_transform.max(),255,0)
 	
-	#将图片进行二值化
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\water.png')
-	gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-	ret, thresh = cv.threshold(gray,0,255,cv.THRESH_BINARY_INV+cv.THRESH_OTSU)
+# Finding unknown region
+sure_fg = np.uint8(sure_fg)
+unknown = cv.subtract(sure_bg,sure_fg)
 	
+# Marker labelling
+ret, markers = cv.connectedComponents(sure_fg)
+# Add one to all labels so that sure background is not 0, but 1
+markers = markers+1
+# Now, mark the region of unknown with zero
+markers[unknown==255] = 0
+
 	
-	#减噪处理
-	kernel = np.ones((3,3),np.uint8)
-	opening = cv.morphologyEx(thresh,cv.MORPH_OPEN,kernel, iterations = 2)
-	
-	# 形态学膨胀
-	sure_bg = cv.dilate(opening,kernel,iterations=3)
-	
-	# Finding sure foreground area
-	#函数distanceTransform()用于计算图像中每一个非零点像素与其最近的零点像素之间的距离，输出的是保存每一个非零点与最近零点的距离信息
-	#可以根据距离变换的这个性质，经过简单的运算，用于细化字符的轮廓和查找物体质心(中心)
-	dist_transform = cv.distanceTransform(opening,cv.DIST_L2,5)
-	
-	ret, sure_fg = cv.threshold(dist_transform,0.7*dist_transform.max(),255,0)
-	
-	# Finding unknown region
-	sure_fg = np.uint8(sure_fg)
-	unknown = cv.subtract(sure_bg,sure_fg)
-	
-	# Marker labelling
-	ret, markers = cv.connectedComponents(sure_fg)
-	# Add one to all labels so that sure background is not 0, but 1
-	markers = markers+1
-	# Now, mark the region of unknown with zero
-	markers[unknown==255] = 0
-	
-	
-	markers = cv.watershed(img,markers)
-	img[markers == -1] = [255,0,0]
-	
-	cv.imshow("good",img)
-	cv.imshow("goood",unknown)
-	cv.waitKey(0)
-	cv.destroyAllWindows()
+markers = cv.watershed(img,markers)
+img[markers == -1] = [255,0,0]
+
+cv.imshow("good",img)
+cv.imshow("goood",unknown)
+cv.waitKey(0)
+cv.destroyAllWindows()
 ```
 
 ----------
@@ -1256,23 +1258,23 @@ k:角点检测方程中的自由参数，取值参数为:[0.04,0.06]
 
 ```
 
-	import cv2 as cv
-	import numpy as np
-	import matplotlib.pyplot as plt
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
-	gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
+img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 	
-	gray = np.float32(gray)
+gray = np.float32(gray)
 	
-	dst = cv.cornerHarris(gray,4,5,0.04)
+dst = cv.cornerHarris(gray,4,5,0.04)
 	
-	#变量a的阈值为0.01 * dst.max()，如果dst的图像值大于阈值，那么该图像的像素点设为True，否则为False
-	img[dst>0.001*dst.max()] = [255,255,0]
-	a = dst>0.01 * dst.max() #a是一个由1，0构成的bool的矩阵
+#变量a的阈值为0.01 * dst.max()，如果dst的图像值大于阈值，那么该图像的像素点设为True，否则为False
+img[dst>0.001*dst.max()] = [255,255,0]
+a = dst>0.01 * dst.max() #a是一个由1，0构成的bool的矩阵
 
-	plt.figure(figsize = (10,8),dpi=100)
-	cv.imshow("good",img)
-	cv.waitKey(0)
+plt.figure(figsize = (10,8),dpi=100)
+cv.imshow("good",img)
+cv.waitKey(0)
 ```
 
 ----------
@@ -1287,31 +1289,33 @@ minDistance:角点之间的最小欧式距离
 
 ```
 
-	#numpy 中ravel函数
-	i = [[132,200]]
-	x,y = np.ravel(i)
-	#输出:x是132，y是200。这个函数的作用是把多维拆开
-	#for loop
-	for i in cor:
-	    x,y = np.ravel(i) #或者x,y = i.ravel()
+#numpy 中ravel函数
+i = [[132,200]]
+x,y = np.ravel(i)
+#输出:x是132，y是200。这个函数的作用是把多维拆开
+#for loop
+for i in cor:
+    x,y = np.ravel(i) #或者x,y = i.ravel()
 
 ```
 
-	import cv2 as cv
-	import numpy as np
-	import matplotlib.pyplot as plt
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
-	gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-	
-	cor = cv.goodFeaturesToTrack(gray,100,0.4,10)
-	
-	for i in cor:
-	    x,y = np.ravel(i)
-	    cv.circle(img,(x,y),2,(255,255,0),-1)
-	
-	cv.imshow("good",img)
-	cv.waitKey(0)
+```
 
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
+img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+cor = cv.goodFeaturesToTrack(gray,100,0.4,10)
+
+for i in cor:
+    x,y = np.ravel(i)
+    cv.circle(img,(x,y),2,(255,255,0),-1)
+
+cv.imshow("good",img)
+cv.waitKey(0)
+```
 ----------  
   
   
@@ -1341,41 +1345,41 @@ flags 是绘图功能标识设置
 
 ```
 
-	import cv2 as cv
-	import numpy as np
-	import matplotlib.pyplot as plt
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
 	
-	#实例化sift
-	
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
-	gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-	
-	sift = cv.xfeatures2d.SIFT_create() #创建sift对象
-	kp,des = sift.detectAndCompute(gray,None)
-	cv.drawKeypoints(img, kp,img,cv.DRAW_MATCHS_FLAGS_DRAW_RICH_KEYPOINTS )
-	
-	cv.imshow("good",img)
-	cv.waitKey(0)
+#实例化sift
+
+img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+sift = cv.xfeatures2d.SIFT_create() #创建sift对象
+kp,des = sift.detectAndCompute(gray,None)
+cv.drawKeypoints(img, kp,img,cv.DRAW_MATCHS_FLAGS_DRAW_RICH_KEYPOINTS )
+
+cv.imshow("good",img)
+cv.waitKey(0)
 ```
 
 <font color=red>实例化suft</font>
 
 ```
 
-	import cv2 
-	import numpy as np 
+import cv2 
+import numpy as np 
 	
-	img = cv2.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+img = cv2.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+
+#参数为hessian矩阵的阈值
+surf = cv2.xfeatures2d.SURF_create(400)
+#找到关键点和描述符
+key_query,desc_query = surf.detectAndCompute(img,None)
+#把特征点标记到图片上
+img=cv2.drawKeypoints(img,key_query,img)
 	
-	#参数为hessian矩阵的阈值
-	surf = cv2.xfeatures2d.SURF_create(400)
-	#找到关键点和描述符
-	key_query,desc_query = surf.detectAndCompute(img,None)
-	#把特征点标记到图片上
-	img=cv2.drawKeypoints(img,key_query,img)
-	
-	cv2.imshow('sp',img)
-	cv2.waitKey(0)
+cv2.imshow('sp',img)
+cv2.waitKey(0)
 ```
 
 <font size = 5>3.FAST 算法</font>
@@ -1391,18 +1395,18 @@ kp 是关键点信息，包括位置，尺度，方向信息
 
 ```
 
-	import cv2 as cv
-	import numpy as np
-	import matplotlib.pyplot as plt
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
 	
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
-	gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-	
-	fast = cv.FastFeatureDetector_create(30) 
-	kp = fast.detect(gray,None)
-	cv.drawKeypoints(img, kp,img,(255,255,0))
-	cv.imshow("good",img)
-	cv.waitKey(0)
+img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+fast = cv.FastFeatureDetector_create(30) 
+kp = fast.detect(gray,None)
+cv.drawKeypoints(img, kp,img,(255,255,0))
+cv.imshow("good",img)
+cv.waitKey(0)
 ```
 
 <font size = 5>4.ORB 算法</font>
@@ -1416,19 +1420,19 @@ cv.drawKeypoints(image，keypoints，outputimage，color)
 
 ```
 
-	import cv2 as cv
-	import numpy as np
-	import matplotlib.pyplot as plt
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
 	
-	img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
-	gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+img = cv.imread('F:\\CISDI\\1st\\test_image\\2_1.jfif')
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+fast = cv.ORB_create(50) 
+kp,des = fast.detectAndCompute(gray,None)
 	
-	fast = cv.ORB_create(50) 
-	kp,des = fast.detectAndCompute(gray,None)
-	
-	img2 = cv.drawKeypoints(img, kp,img,(255,255,0))
-	cv.imshow("good",img2)
-	cv.waitKey(0)
+img2 = cv.drawKeypoints(img, kp,img,(255,255,0))
+cv.imshow("good",img2)
+cv.waitKey(0)
 ```
 -----------
 
