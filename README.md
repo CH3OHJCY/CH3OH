@@ -1,4 +1,4 @@
-CH3OH - 2021.5.6  
+CH3OH - 贾淳宇 - 2021.5.6  
 
 Python OpenCV学习笔记  
 
